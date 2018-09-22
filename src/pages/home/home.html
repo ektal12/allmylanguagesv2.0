@@ -1,16 +1,20 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Japanese with Ease - Assimil
+      My saved texts
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
  <ion-list>
-  <ion-item *ngFor="let lesson of assimilFrench; let i = index" (click)="reviewLesson(lesson, i)">
-    <p>{{lesson.album.substr(8)}} - {{lesson.sentences[0].title}} - {{lesson.sentences[1].title}}</p>
-
+  <ion-item *ngFor="let text of mySavedTexts; let i = index" >
+    <div (click)="reviewLesson(text)">
+    <p>{{text.shortDescription}} - {{text.date  | date:'mediumDate' }}</p>
+  </div>
+    <ion-buttons item-end >
+         <button ion-button class='trash' (click)="deleteText(text)"><ion-icon name="trash"></ion-icon></button>
+        </ion-buttons>
   </ion-item>
 
  </ion-list>

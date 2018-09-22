@@ -1,7 +1,7 @@
-import { Word } from "./word";
+import { SentenceElement } from "./word";
 
 export interface Sentence {
     id?: string
-    text?: string;
-    sentenceArray?: Array<Word>
+    sentenceText?: string;
+    sentenceArray?: Array<SentenceElement>
 }

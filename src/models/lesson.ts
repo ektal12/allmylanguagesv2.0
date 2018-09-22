@@ -4,6 +4,6 @@ export interface Lesson {
     id?: string
     date?: string;
     shortDescription?: string;
-    text?: string;
+    lessonText?: string;
     sentenceArray?: Array<Sentence>
 }

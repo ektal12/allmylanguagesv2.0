@@ -25,20 +25,16 @@ export class ReviewALessonPage {
       
       if(this.navParams.get('lesson')) {
         let myLesson = this.navParams.get('lesson')
-  
+    
         if(!myLesson.practiceArray) {
-          myLesson.practiceArray = this.createPracticeArray(myLesson.sentences.length)
+          myLesson.practiceArray = this.createPracticeArray(myLesson.sentenceArray.length)
           myLesson.currentItem = 0
         }
         this.lesson = myLesson
   
        
-        this.lessonSentences =  this.lesson.sentences  
+        this.lessonSentences =  this.lesson.sentenceArray  
   
-        
-       
-        // this.practiceArray = this.createPracticeArray()
-        // console.log(this.practiceArray)
       }
   
       // if(this.navParams.get('index')) {
@@ -49,7 +45,8 @@ export class ReviewALessonPage {
   
     ionViewWillLeave() {
       if(this.lesson) {
-        this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
+        this.dataStore.updateAText(this.lesson)
+        // this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
       }
     }
   
@@ -65,15 +62,14 @@ export class ReviewALessonPage {
             break;
           case 'normal':
             word.class = 'red';
-            
-            // this.dataStore.saveALesson(this.lesson, this.lessonIndex, i)
-            this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
+         this.dataStore.updateAText(this.lesson)
+            // this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
             break;
           case '':
             word.class = 'red';
           
-            // this.dataStore.saveALesson(this.lesson, this.lessonIndex, i)
-            this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
+            this.dataStore.updateAText(this.lesson)
+            // this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
            
             break;
           default:
@@ -84,15 +80,7 @@ export class ReviewALessonPage {
       }
     }
   
-    play(sentenceId) {
-    
-      let audioPlayer = document.getElementById(sentenceId) as HTMLMediaElement
-    
-         // let audioPlayer = element as HTMLMediaElement
-      //fix this
-      audioPlayer.play()
-     
-    }
+   
   
     review(sentence, mode) {
   
@@ -158,7 +146,7 @@ export class ReviewALessonPage {
   
        
        var i = 0
-        this.lesson.sentences.forEach(sentence=> {
+        this.lesson.sentenceArray.forEach(sentence=> {
           if(i != index){
             // console.log(sentence.sentenceArray)
             sentence.sentenceArray.forEach(item=> {
@@ -177,7 +165,8 @@ export class ReviewALessonPage {
         sentence.marked = ''
         if(this.lesson.currentItem < this.lesson.practiceArray.length-1) {
           this.lesson.currentItem ++
-          this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
+          this.dataStore.updateAText(this.lesson)
+          // this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
         } else {
           this.lesson.currentItem = 0
           this.lessonSentences.forEach(sentence => {
@@ -185,7 +174,8 @@ export class ReviewALessonPage {
           })
           //shuffle them up again
           this.lesson.practiceArray = this.createPracticeArray(this.lesson.sentences.length)
-          this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
+          this.dataStore.updateAText(this.lesson)
+          // this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
           // this.scrollTo('0')
         }
         sentence.sentenceArray.forEach(item => {

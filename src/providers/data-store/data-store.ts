@@ -17,6 +17,74 @@ export class DataStoreProvider {
 
   }
 
+getMyTexts() {
+  return this.platform.ready().then(()=> {
+    return this.storage.get('myTexts')
+    .then((res)=> {
+      return res
+    })
+  })
+}
+
+  saveNewText(lesson) {
+    //PROTEXT THIS WITH PLATFORM///
+    this.storage.get('myTexts')
+    .then(myTexts=> {
+      if(!myTexts) {
+        myTexts = []
+      }
+      myTexts.push(lesson)
+      console.log(myTexts)
+      this.storage.set('myTexts', myTexts)
+      .then(res=> {console.log(res)
+        this.events.publish('textsChanged')
+      })
+    }).catch(err=> console.log(err))
+  }
+  
+  updateAText(lesson) {
+  
+    let newTexts = []
+      this.getMyTexts()
+      .then(myTexts => {
+        myTexts.forEach(item => {
+          if (item.id == lesson.id) {
+            
+            newTexts.push(lesson)
+
+          } else {
+           
+            newTexts.push(item)
+          }
+        })
+       
+        this.storage.set('myTexts', newTexts)
+        .then(()=> {
+          this.events.publish('textsChanged')
+        })
+      })
+  }
+
+deleteAText(text) {
+  this.getMyTexts()
+      .then(myTexts => {
+        myTexts.forEach(item => {
+          if (item.id == text.id) {
+            console.log(item)
+            let index = myTexts.indexOf(item)
+            console.log(index)
+            myTexts.splice(index, 1)
+            
+          }
+        })
+       
+        this.storage.set('myTexts', myTexts)
+        .then(()=> {
+          this.events.publish('textsChanged')
+        })
+      })
+    }
+  //OLD CODE BELOW
   getCourse() {
 
 
@@ -55,124 +123,14 @@ export class DataStoreProvider {
     })
   }
 
-//   prepareTheCourse(): Promise<any> {
-//     let output = []
-
-// let initialData = [{"album":"ASSIMIL Japanese - L004","sentences":[{"title":"第四課","path":"/assets/audio/L004-Japanese ASSIMIL/N4.mp3"},{"title":"税関","path":"/assets/audio/L004-Japanese ASSIMIL/S00-TITLE.mp3"},{"title":"カメラ を、 持って います か。カメラ 『を 持って？ います か。","path":"/assets/audio/L004-Japanese ASSIMIL/S01.mp3"},{"title":"はい、「持って」 います。はい、持って〜 います・います。","path":"/assets/audio/L004-Japanese ASSIMIL/S02.mp3"},{"title":"どこ に あります か","path":"/assets/audio/L004-Japanese ASSIMIL/S03.mp3"},{"title":"トランク の 中 に あります。","path":"/assets/audio/L004-Japanese ASSIMIL/S04.mp3"},{"title":"トランク の 中 に 何 が あります か。","path":"/assets/audio/L004-Japanese ASSIMIL/S05.mp3"},{"title":"服 と 本 が あります。","path":"/assets/audio/L004-Japanese ASSIMIL/S06.mp3"},{"title":"それ だけ です か。","path":"/assets/audio/L004-Japanese ASSIMIL/S07.mp3"},{"title":"はい、そう です。","path":"/assets/audio/L004-Japanese ASSIMIL/S08.mp3"},{"title":"お 酒?","path":"/assets/audio/L004-Japanese ASSIMIL/S09.mp3"},{"title":"ありません。","path":"/assets/audio/L004-Japanese ASSIMIL/S10.mp3"},{"title":"はい、けっこう です。","path":"/assets/audio/L004-Japanese ASSIMIL/S11.mp3"},{"title":"服 を 持って います か。","path":"/assets/audio/L004-Japanese ASSIMIL/T01.mp3"},{"title":"はい、持って います。","path":"/assets/audio/L004-Japanese ASSIMIL/T02.mp3"},{"title":"どこ に あります か。","path":"/assets/audio/L004-Japanese ASSIMIL/T03.mp3"},{"title":"あそこ に あります。","path":"/assets/audio/L004-Japanese ASSIMIL/T04.mp3"}]},{"album":"ASSIMIL Japanese - L005","sentences":[{"title":"第五課","path":"/assets/audio/L005-Japanese ASSIMIL/N5.mp3"},{"title":"買物","path":"/assets/audio/L005-Japanese ASSIMIL/S00-TITLE.mp3"},{"title":"どこ へ 行きます か。","path":"/assets/audio/L005-Japanese ASSIMIL/S01.mp3"},{"title":"デパート へ 行きます。","path":"/assets/audio/L005-Japanese ASSIMIL/S02.mp3"},{"title":"一緒 に 行きます。","path":"/assets/audio/L005-Japanese ASSIMIL/S03.mp3"},{"title":"何 を 買います か。","path":"/assets/audio/L005-Japanese ASSIMIL/S04.mp3"},{"title":"靴下 を 買います。","path":"/assets/audio/L005-Japanese ASSIMIL/S05.mp3"},{"title":"着きました。","path":"/assets/audio/L005-Japanese ASSIMIL/S06.mp3"},{"title":"入りましょう。","path":"/assets/audio/L005-Japanese ASSIMIL/S07.mp3"},{"title":"ここ に 靴下 が あります。","path":"/assets/audio/L005-Japanese ASSIMIL/S08.mp3"},{"title":"でも 高い です ね。","path":"/assets/audio/L005-Japanese ASSIMIL/S09.mp3"},{"title":"そう です ね。","path":"/assets/audio/L005-Japanese ASSIMIL/S10.mp3"},{"title":"やめます。","path":"/assets/audio/L005-Japanese ASSIMIL/S11.mp3"},{"title":"あそこ に 靴下 が あります。","path":"/assets/audio/L005-Japanese ASSIMIL/T01.mp3"},{"title":"ここ に トランク が あります。","path":"/assets/audio/L005-Japanese ASSIMIL/T02.mp3"},{"title":"どこ へ  行きます か。","path":"/assets/audio/L005-Japanese ASSIMIL/T03.mp3"},{"title":"服 を 買います。","path":"/assets/audio/L005-Japanese ASSIMIL/T04.mp3"},{"title":"どこ に あります か。","path":"/assets/audio/L005-Japanese ASSIMIL/T05.mp3"}]}]
-
-
-//        initialData.forEach((lesson) => {
-//       //create a Lesson object
-//       let myLesson = {
-//         album: lesson.album,
-//         sentences: [],
-//       }
-//       // analyse the sentence
-//       let i = 0
-//       lesson.sentences.forEach(sentence => {
-
-//         let sentenceArray = this.splitUpSentence(sentence.title)
-//         let mySentence = {
-//           id: "sentence" + i,
-//           title: sentence.title,
-//           path: sentence.path,
-//           sentenceArray: sentenceArray
-//         }
-
-//         myLesson.sentences.push(mySentence)
-
-//         i++
-//       })
-//       //put the lesson Object into the output
-//       output.push(myLesson)
-
-
-
-//     })
-//     return new Promise((resolve, reject) => resolve(output));
-//   }
-
+  
+  
   testPromise(): Promise<any> {
     var PROPERTIES = 8
     return new Promise((resolve, reject) => resolve(PROPERTIES));
   }
 
-  // splitUpSentence(sentence) {
-  //   let output = []
-  //   // let splitUpWords = new RegExp(/[\s\t。、「」『』〜・？！ （）【】｛｝…]/)
-
-  //   let splitUpWords = new RegExp(/(?=[。、「」『』〜・？！（）【】｛｝…\s\t])/)
-
-
-  //   let step1 = sentence.split(splitUpWords)
-
-
-  //   // let punctuation = new RegExp(/[!@#$%^&*()=_+|;:",.<>?。、「」『』〜・？！ （）【】｛｝…]/)
-  //   let punctuation = new RegExp(/[。、「」『』〜・？！ （）【】｛｝…]/)
-  //   // let removePunctuation = new RegExp(/(?=[!@#$%^&*()=_+|;:",.<>?。、「」『』〜・？！ （）【】｛｝…])/)
-  //   let removePunctuation = new RegExp(/(?<=[。、「」『』〜・？！（）【】｛｝…\s\t])/)
-
-
-
-  //   // 。、「」『』〜・？！ （）【】｛｝…
-
-  //   step1.forEach(item => {
-  //     let myPiece = item.trim().split(removePunctuation)
-  //     if (myPiece[0] != "") {
-  //       // let myPiece = item.split(removePunctuation)
-  //       let type = 'word'
-  //       if (myPiece.length == 1) {
-  //         //in case its the last word in a sentence we need to check if that is a punctuation mark
-  //         if (punctuation.test(myPiece[0])) {
-  //           type = 'punctuation'
-  //         }
-
-  //         let wordObj = {
-
-  //           text: myPiece[0],
-  //           type: type,
-  //           class: ""
-  //         }
-  //         output.push(wordObj)
-  //       }
-  //       if (myPiece.length > 1) {
-
-  //         let punctuationObj = {
-  //           text: myPiece[0],
-  //           type: 'punctuation',
-  //           class: ""
-  //         }
-  //         output.push(punctuationObj)
-
-
-  //         // let wordObj = {
-  //         //   text: myPiece[1],
-  //         //   type: 'word',
-  //         //   class: ""
-  //         // }
-  //         // output.push(wordObj)
-  //         for (var i = 1; i < myPiece.length; i++) {
-  //           let wordObj = {
-  //             text: myPiece[i],
-  //             type: 'word',
-  //             class: ""
-  //           }
-  //           output.push(wordObj)
-  //           // let punctuationObj = {
-  //           //   text: myPiece[0],
-  //           //   type: 'punctuation',
-  //           //   class: ""
-  //           // }
-  //           // output.push(punctuationObj)
-  //         }
-
-  //       }
-  //     }
-  //   })
-
-  //   return output
-
-  // }
+//OLD CODE BELOW
 
   saveALessonTest(lesson, lessonIndex) {
     // console.log(lessonIndex)
@@ -188,7 +146,7 @@ export class DataStoreProvider {
 
 
 
-  updateALesson(lesson, lessonIndex, sentenceIndex) {
+  updateALessonOLD(lesson, lessonIndex, sentenceIndex) {
     // console.log(lessonIndex)
     lesson.forEach(sentence => {
       sentence.practised = false
@@ -210,9 +168,11 @@ export class DataStoreProvider {
   }
 
 
-  saveNewLesson(lesson) {
+
+
+  saveNewLessonOLD(lesson) {
  
-    this.storage.get('myLessons')
+    this.storage.get('course')
       .then((result) => {
         let myLessons = JSON.parse(result)
         return myLessons
@@ -223,7 +183,7 @@ export class DataStoreProvider {
         }
         myLessons.push(lesson)
         let myLessonsForStorage = JSON.stringify(myLessons)
-        this.storage.set('myLessons', myLessonsForStorage)
+        this.storage.set('course', myLessonsForStorage)
           .then(res => {
             console.log(res)
           })
