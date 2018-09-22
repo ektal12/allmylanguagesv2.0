@@ -12,7 +12,7 @@ export class ProcessTextProvider {
   }
 
   processText(lesson: Lesson) {
-    console.log(lesson.lessonText)
+  
     let sentences = []
     //split up into individual lines
     let splitUpLines = new RegExp(/$/m)

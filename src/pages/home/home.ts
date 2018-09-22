@@ -18,8 +18,6 @@ mySavedTexts = []
 
 
   constructor(public navCtrl: NavController, 
-    // private storage: Storage, 
-    // private platform: Platform,
     private dataStore: DataStoreProvider,
     private events: Events
     ) {
@@ -52,6 +50,10 @@ deleteText(text) {
 
 addAText() {
   this.navCtrl.push('AddATextPage' )
+}
+
+help() {
+  this.navCtrl.push('HelpPage' )
 }
 
 }

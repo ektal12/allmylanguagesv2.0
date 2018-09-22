@@ -12,11 +12,10 @@ import { DataStoreProvider } from '../../providers/data-store/data-store';
 export class ReviewALessonPage {
   lesson
   lessonSentences = []
-  lessonIndex
+  // lessonIndex
   reviewing = false
-  // practiceArray = []
-  // currentItem = 0
-  audio = 'audio'
+  
+
   @ViewChild(Content) content: Content;
   
     constructor( public navParams: NavParams,
@@ -37,16 +36,16 @@ export class ReviewALessonPage {
   
       }
   
-      // if(this.navParams.get('index')) {
-        this.lessonIndex = this.navParams.get('index')
-      // }
+    
+        // this.lessonIndex = this.navParams.get('index')
+ 
       
     }
   
     ionViewWillLeave() {
       if(this.lesson) {
         this.dataStore.updateAText(this.lesson)
-        // this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
+        
       }
     }
   
@@ -63,13 +62,13 @@ export class ReviewALessonPage {
           case 'normal':
             word.class = 'red';
          this.dataStore.updateAText(this.lesson)
-            // this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
+           
             break;
           case '':
             word.class = 'red';
           
             this.dataStore.updateAText(this.lesson)
-            // this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
+        
            
             break;
           default:
@@ -84,7 +83,7 @@ export class ReviewALessonPage {
   
     review(sentence, mode) {
   
-      // this.reviewing = !this.reviewing
+    
       sentence.reviewing = !sentence.reviewing
       let myClass = 'normal'
       if (sentence.reviewing) {
@@ -108,7 +107,7 @@ export class ReviewALessonPage {
       if (!sentence.reviewingSingle) {
         sentence.reviewingSingle = false
       }
-      // this.reviewing = !this.reviewing
+     
       sentence.reviewingSingle = !sentence.reviewingSingle
       let myClass = 'normal'
       if (sentence.reviewingSingle) {
@@ -148,7 +147,7 @@ export class ReviewALessonPage {
        var i = 0
         this.lesson.sentenceArray.forEach(sentence=> {
           if(i != index){
-            // console.log(sentence.sentenceArray)
+          
             sentence.sentenceArray.forEach(item=> {
               if(item.class == 'blank' || item.class == 'fade' || item.class == 'green') {
                 item.class = ''
@@ -166,7 +165,7 @@ export class ReviewALessonPage {
         if(this.lesson.currentItem < this.lesson.practiceArray.length-1) {
           this.lesson.currentItem ++
           this.dataStore.updateAText(this.lesson)
-          // this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
+          
         } else {
           this.lesson.currentItem = 0
           this.lessonSentences.forEach(sentence => {
@@ -175,8 +174,8 @@ export class ReviewALessonPage {
           //shuffle them up again
           this.lesson.practiceArray = this.createPracticeArray(this.lesson.sentences.length)
           this.dataStore.updateAText(this.lesson)
-          // this.dataStore.saveALessonTest(this.lessonSentences, this.lessonIndex)
-          // this.scrollTo('0')
+        
+         
         }
         sentence.sentenceArray.forEach(item => {
           item.class='green'
