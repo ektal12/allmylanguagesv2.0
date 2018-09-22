@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { Lesson } from '../../models/lesson';
 import { ProcessTextProvider } from '../../providers/process-text/process-text';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
