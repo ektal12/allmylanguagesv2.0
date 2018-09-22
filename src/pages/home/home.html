@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Japanese with Ease - Assimil
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+ <ion-list>
+  <ion-item *ngFor="let lesson of assimilFrench; let i = index" (click)="reviewLesson(lesson, i)">
+    <p>{{lesson.album.substr(8)}} - {{lesson.sentences[0].title}} - {{lesson.sentences[1].title}}</p>
+
+  </ion-item>
+
+ </ion-list>
+</ion-content>
+
+
+<ion-footer>
+  <button class="footerButton" ion-button block (click)="addAText()"><ion-icon class="footerButtonIcon" name="add-circle"></ion-icon>Add a new text</button>
+</ion-footer>

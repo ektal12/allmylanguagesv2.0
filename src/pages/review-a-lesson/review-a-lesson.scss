@@ -1,0 +1,46 @@
+page-review-a-lesson {
+
+    ion-content {
+        font-family:  monospace;
+        
+    }
+    //this keeps the grey boxes from touching
+    .line {
+        line-height: 30px;
+    }
+    
+    
+    .red {
+        color: red;
+    }
+    
+    .green {
+        color: green
+    }
+    
+    .normal {
+        margin-right: 5px;
+        margin-right: 5px;
+        margin-top: 30px;
+        -webkit-user-select: text;
+-moz-user-select: text;
+-ms-user-select: text;
+user-select: text;
+    }
+    
+    .fade {
+        opacity: 0.3;
+        margin-right: 5px;
+        margin-top: 30px;
+    }
+    
+    
+    .blank {
+        color: grey;
+        background-color: grey;
+        margin-right: 5px;
+        margin-top: 30px;
+    }
+    
+    }
+    
