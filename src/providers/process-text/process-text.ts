@@ -50,7 +50,7 @@ export class ProcessTextProvider {
   }
 
   splitOffPunctuation(element) {
-    let punctuation = new RegExp(/[.,\/#!?$%\^&\*;:{}=\-_`~()…¿¡<>]/)
+    let punctuation = new RegExp(/[.,\/#!?$%\^&\*;:{}\[\]=\-_`~()…¿¡<>"'“”]/)
     let punctuationBeforeCount = 0
     let myString = element
     while (punctuation.test(myString.substr(0, 1))) {
