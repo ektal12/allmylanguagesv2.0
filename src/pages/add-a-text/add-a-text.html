@@ -2,7 +2,10 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>addAText</ion-title>
+    <ion-title>Add a new text</ion-title>
+    <ion-buttons end >
+      <button class="topButton" ion-button outline (click)='saveNewText()'><ion-icon class="footerButtonIcon" name="add-circle"></ion-icon>Save this text</button>
+     </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -11,7 +14,7 @@
 <ion-content padding>
 
     <ion-item class="dateLabel" no-lines>
-        <ion-label color="primary">Add date</ion-label>
+        <ion-label  color="primary">Add date</ion-label>
         <ion-datetime displayFormat="DD/MMM/YYYY" [(ngModel)]="myLesson.date"></ion-datetime>
       </ion-item>
     

@@ -30,8 +30,8 @@ export class ReviewALessonPage {
           myLesson.currentItem = 0
         }
         this.lesson = myLesson
-  
        
+        // WATCHIT
         this.lessonSentences =  this.lesson.sentenceArray  
   
       }
@@ -43,6 +43,8 @@ export class ReviewALessonPage {
     }
   
     ionViewWillLeave() {
+
+      //WATCHIT
       if(this.lesson) {
         this.dataStore.updateAText(this.lesson)
         
@@ -61,12 +63,13 @@ export class ReviewALessonPage {
             break;
           case 'normal':
             word.class = 'red';
+            // WATCHIT
          this.dataStore.updateAText(this.lesson)
            
             break;
           case '':
             word.class = 'red';
-          
+           // WATCHIT
             this.dataStore.updateAText(this.lesson)
         
            
@@ -100,6 +103,9 @@ export class ReviewALessonPage {
           item.class = myClass
         }
       })
+
+     
+      
     }
   
     reviewSingle(sentence, mode) {
@@ -140,52 +146,61 @@ export class ReviewALessonPage {
       
      
       let index = this.lesson.practiceArray[this.lesson.currentItem]
+       // WATCHIT
       let sentence = this.lessonSentences[index]
+     
       this.review(sentence, mode)
   
-       
+     
        var i = 0
         this.lesson.sentenceArray.forEach(sentence=> {
-          if(i != index){
-          
+          if(i != index){  
             sentence.sentenceArray.forEach(item=> {
               if(item.class == 'blank' || item.class == 'fade' || item.class == 'green') {
                 item.class = ''
               }
-             
             })
           }
           i++
         })
-  
+       
       
       if(!sentence.reviewing) {
         //ie we are revealing the sentence
         sentence.marked = ''
         if(this.lesson.currentItem < this.lesson.practiceArray.length-1) {
           this.lesson.currentItem ++
+   
           this.dataStore.updateAText(this.lesson)
-          
         } else {
           this.lesson.currentItem = 0
-          this.lessonSentences.forEach(sentence => {
+
+      
+          this.lesson.sentenceArray.forEach(sentence => {
             sentence.practised = false
+         
           })
           //shuffle them up again
-          this.lesson.practiceArray = this.createPracticeArray(this.lesson.sentences.length)
+          this.lesson.practiceArray = this.createPracticeArray(this.lesson.sentenceArray.length)
+      
+
+      
           this.dataStore.updateAText(this.lesson)
         
          
         }
         sentence.sentenceArray.forEach(item => {
-          item.class='green'
+          if(item.class != 'red') {
+            item.class='green'
+          }
+          
         })
   
         
       } else {
       // ie we are reviewing the sentence
         
-        sentence.marked = 'red'
+        sentence.marked = 'marked'
   
         let scrollPosition = index
         if(index > 2) {

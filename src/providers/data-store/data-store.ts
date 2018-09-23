@@ -35,7 +35,7 @@ getMyTexts() {
         myTexts = []
       }
       myTexts.push(lesson)
-      console.log(myTexts)
+      myTexts.sort(this.compare)
       this.storage.set('myTexts', myTexts)
       .then(res=> {console.log(res)
         this.events.publish('textsChanged')
@@ -48,6 +48,7 @@ getMyTexts() {
     let newTexts = []
       this.getMyTexts()
       .then(myTexts => {
+       
         myTexts.forEach(item => {
           if (item.id == lesson.id) {
             
@@ -58,7 +59,7 @@ getMyTexts() {
             newTexts.push(item)
           }
         })
-       
+        
         this.storage.set('myTexts', newTexts)
         .then(()=> {
           this.events.publish('textsChanged')
@@ -86,4 +87,14 @@ deleteAText(text) {
       })
     }
 
+    compare(a,b) {
+      if (a.date < b.date)
+      return 1;
+      if (a.date > b.date)
+      return -1;
+      return 0;
+      }
+
+
 }
+

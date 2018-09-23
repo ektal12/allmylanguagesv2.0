@@ -2,7 +2,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title *ngIf=lesson>{{lesson.shortDescription}} </ion-title>
+    <ion-title *ngIf=lesson>{{lesson.shortDescription}} - {{lesson.date  | date:'mediumDate' }}</ion-title>
   </ion-navbar>
 
 </ion-header>

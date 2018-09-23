@@ -14,7 +14,15 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+ion-content {
+        
+  font-family: monospace;
+  font-size: 150%;
+}
 
+ion-title {
+  font-family: monospace;
+}
 
 .toolbar-background{
     background: linear-gradient(48deg, rgba(70, 150, 204, 0.8) 0%, rgba(70, 150, 204, 0.8) 28%, rgba(0, 168, 168, 0.98) 93%, rgba(0, 168, 168, 1) 100%) !important;
@@ -26,10 +34,21 @@
 
 
   .footerButton {
+    font-family: monospace;
+    font-size: 150%;
     height: 4em;
     background: linear-gradient(48deg, rgba(70, 150, 204, 0.8) 0%, rgba(70, 150, 204, 0.8) 28%, rgba(0, 168, 168, 0.98) 93%, rgba(0, 168, 168, 1) 100%) !important;
   }
 
   .footerButtonIcon {
     padding-right: 0.5em;
+}
+
+.topButton {
+  font-family: monospace;
+  font-size: 120%;
+  color: antiquewhite;
+  border: 1px solid antiquewhite;
+  border-radius: 4px;
+  padding: 0 10px;
 }
