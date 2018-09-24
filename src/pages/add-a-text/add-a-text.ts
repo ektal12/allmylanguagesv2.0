@@ -3,6 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { Lesson } from '../../models/lesson';
 import { ProcessTextProvider } from '../../providers/process-text/process-text';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
+import { HomePage } from '../home/home';
 
 
 
@@ -34,5 +35,9 @@ export class AddATextPage {
     this.dataStore.saveNewText(processedLesson)
     
     this.navCtrl.pop()
+  }
+
+  back() {
+    this.navCtrl.setRoot(HomePage)
   }
 }

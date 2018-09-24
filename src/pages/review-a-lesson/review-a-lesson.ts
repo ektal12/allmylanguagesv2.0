@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavParams, Content } from 'ionic-angular';
+import { IonicPage, NavParams, Content, NavController } from 'ionic-angular';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
+import { HomePage } from '../home/home';
 
 
 
@@ -19,7 +20,8 @@ export class ReviewALessonPage {
   @ViewChild(Content) content: Content;
   
     constructor( public navParams: NavParams,
-      private dataStore: DataStoreProvider
+      private dataStore: DataStoreProvider,
+      private navCtrl: NavController
       ) {
       
       if(this.navParams.get('lesson')) {
@@ -34,6 +36,8 @@ export class ReviewALessonPage {
         // WATCHIT
         this.lessonSentences =  this.lesson.sentenceArray  
   
+      } else {
+        this.navCtrl.setRoot(HomePage)
       }
   
     
