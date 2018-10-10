@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { Lesson } from '../../models/lesson';
 import { ProcessTextProvider } from '../../providers/process-text/process-text';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
@@ -24,17 +24,42 @@ export class AddATextPage {
   constructor(private navCtrl: NavController, 
     private processTextProvider: ProcessTextProvider,
     private dataStore: DataStoreProvider,
+    private toastCtrl: ToastController
 
         ) {
 
   }
 
   saveNewText() {
-    let processedLesson =  this.processTextProvider.processText(this.myLesson)
-    console.log(processedLesson)
-    this.dataStore.saveNewText(processedLesson)
-    
-    this.navCtrl.pop()
+    if (this.myLesson.lessonText == '') {
+      
+      let toast =  this.toastCtrl.create({
+        message: 'Sorry! You need to add some text for the app to work on.  Paste it into the box!',
+        duration: 3000,
+        position: 'middle'
+      });
+      toast.present();
+
+    } else {
+      let processedLesson = this.processTextProvider.processText(this.myLesson)
+      
+      if (processedLesson.shortDescription == '') {
+        if (processedLesson.sentenceArray[0]) {
+          processedLesson.shortDescription = processedLesson.sentenceArray[0].sentenceText
+        } else {
+          console.log('stop')
+        }
+
+      }
+
+      this.dataStore.saveNewText(processedLesson)
+
+      this.navCtrl.pop()
+    }
+
+
+
+   
   }
 
   back() {

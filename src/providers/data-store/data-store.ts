@@ -37,7 +37,7 @@ getMyTexts() {
       myTexts.push(lesson)
       myTexts.sort(this.compare)
       this.storage.set('myTexts', myTexts)
-      .then(res=> {console.log(res)
+      .then(res=> {
         this.events.publish('textsChanged')
       })
     }).catch(err=> console.log(err))
