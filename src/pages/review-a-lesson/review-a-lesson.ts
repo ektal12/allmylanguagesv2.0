@@ -43,7 +43,7 @@ export class ReviewALessonPage {
     
         // this.lessonIndex = this.navParams.get('index')
  
-      
+    
     }
   
     ionViewWillLeave() {

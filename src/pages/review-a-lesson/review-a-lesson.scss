@@ -9,13 +9,17 @@ page-review-a-lesson {
         line-height: 30px;
     }
     
-    
+    //WARNING ... I SWAPPED THESE ROUND BECAUSE AS CEDRIC POINTED OUT GREEN SHOULD BE POSITIVE, EASY OR WHATEVER
     .red {
-        color: red;
+        font-weight: bold;
+        color: #29a329
+        // color: red;
     }
     
     .green {
-        color: green
+        
+        color: red;
+        // color: green
     }
     
     .normal {
